@@ -1,40 +1,50 @@
 #include<stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include<stdlib.h>
+#include<time.h>
 
-int merge(int a[], int f, int m, int l)
+void merge(int a[], int f, int m, int l)
 {
     int i, j, k;
-    i=f;
-    j=m+1;
-    k=0;
+
+    i = f;
+    j = m + 1;
+    k = 0;
+
     int r[100];
-    while(i<=m && j<=l)
+
+    while(i <= m && j <= l)
     {
-        if(a[i]<a[j]){
-            r[k]=a[i];
+        if(a[i] < a[j])
+        {
+            r[k] = a[i];
             i++;
-            k++;
-        }else{
-            r[k]=a[j];
-            j++;
-            k++;
         }
+        else
+        {
+            r[k] = a[j];
+            j++;
+        }
+
+        k++;
     }
-    while(i<=m)
+
+    while(i <= m)
     {
-        r[k]=a[i];
+        r[k] = a[i];
         i++;
         k++;
     }
-    while(j<=l)
+
+    while(j <= l)
     {
-        r[k]=a[j];
+        r[k] = a[j];
         j++;
         k++;
     }
-    k=0;
-    for(i=f;i<l;i++)
+
+    k = 0;
+
+    for(i = f; i <= l; i++)
     {
         a[i] = r[k];
         k++;
@@ -43,11 +53,13 @@ int merge(int a[], int f, int m, int l)
 
 void mergesort(int a[], int f, int l)
 {
-    if(f<l)
+    if(f < l)
     {
-        int m = (f+l)/2;
+        int m = (f + l) / 2;
+
         mergesort(a, f, m);
-        mergesort(a, m+1, l);
+        mergesort(a, m + 1, l);
+
         merge(a, f, m, l);
     }
 }
@@ -55,26 +67,41 @@ void mergesort(int a[], int f, int l)
 int main()
 {
     int n, i;
+
     clock_t start, end;
     double cpu_time;
 
-    printf("Enter the number of elements:");
+    printf("Enter number of elements: ");
     scanf("%d", &n);
+
     int a[n];
-    printf("Enter elements:");
-    for(i=0; i<n; i++)
+
+    printf("Enter elements:\n");
+
+    for(i = 0; i < n; i++)
     {
         scanf("%d", &a[i]);
     }
-    start=clock();
-    mergesort(a, 0, n-1);
-    end=clock();
-    cpu_time=((double)(end-start))/CLOCKS_PER_SEC;
-    printf("Sorted elemenets:");
-    for(i=0;i<n;i++)
+
+    start = clock();
+
+    mergesort(a, 0, n - 1);
+
+    end = clock();
+
+    cpu_time =
+    ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    printf("\nSorted elements:\n");
+
+    for(i = 0; i < n; i++)
     {
-        printf("%d", a[i]);
+        printf("%d ", a[i]);
     }
-    printf("\nTime taken = %f seconds\n", cpu_time);
+
+    printf("\n");
+
+    printf("Time taken = %f seconds\n", cpu_time);
+
     return 0;
 }
